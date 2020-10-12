@@ -1,3 +1,130 @@
+<?php
+
+if(isset($_POST['login'])){
+  require('includes/config.php');
+
+  if (empty($_POST['email']) && empty($_POST['password']) ) {
+    $error[] = "Please fill out all fields";
+  }
+  else{
+  $email = $_POST['email'];
+   if (!filter_var($email,FILTER_VALIDATE_EMAIL) === false){
+          if (empty($_POST['password'])){
+            $error[] = 'A password must be entered';
+          }
+          else{
+            $password = md5($_POST['password']);
+
+            $admin = "SELECT * FROM admin WHERE email='$email' AND password='$password'";
+
+            $result1 = $conn-> query($admin);
+
+            if($result1 -> num_rows > 0){
+
+            $_SESSION['email'] = $email;
+            header('Location:admin.html');
+            exit;
+
+            }
+
+            else{
+            $a = "SELECT * FROM signup WHERE email='$email' AND password='$password'";
+
+            $result = $conn-> query($a);
+
+            if($result -> num_rows > 0){
+
+              $msg = "Logged in";
+            $_SESSION['email'] = $email;
+            header('Location:homepage.html');
+            exit;
+            
+
+            }
+            else {
+                $error[] = 'Wrong username or password or your account has not been activated.';
+                 }
+              }
+          }
+        }
+        else {$error[] = "Enter a valid email address";}
+      }
+    }
+  elseif (isset($_POST['signup'])) {
+
+      require('includes/config.php');
+       $err = array();
+      $fullname = trim($_POST['fullName']);
+      $email = $_POST['email'];
+      $gender = $_POST['gender'];
+      $contactNumber = $_POST['contactNumber'];
+      $state = $_POST['state'];
+      $password = $_POST['password'];
+      $confirmPassword = $_POST['confirmPassword'];
+
+      $e = "SELECT * FROM signup WHERE email='$email'";
+
+      $result_email = $conn-> query($e);
+
+      if (empty($_POST['fullName']) || empty($_POST['email']) || empty($_POST['contactNumber']) ||(isset($_POST['gender']) && $_POST['gender'] == '-1') || 
+        (isset($_POST['state']) && $_POST['state'] == '-1') || empty($_POST['password']) || empty($_POST['confirmPassword']) ){
+          array_push($err, 'Please fill all required fields!');
+      }
+      elseif (!preg_match('/^[a-zA-Z\s]+$/',$fullname)){
+          array_push($err, 'Name should contain only letters and spaces');
+      }
+      elseif (!preg_match('/^[0-9]{10}$/',$contactNumber)){
+          array_push($err, 'Phone No should be 10 digits');
+      }
+
+      elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        array_push($err, 'Email Id is invalid');
+      }
+      elseif (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@*#$%]{8,12}$/', $password)){
+        array_push($err, 'Password should contain atleast 1 letter ,1 number , special character and should be min 8 length');
+
+      }
+      elseif ($password !== $confirmPassword) {
+         array_push($err, 'Password and Confirm password should match!');   
+      }
+      else if ($result_email-> num_rows > 0){
+        array_push($err, 'Email already exists');
+      }
+      else{
+
+       $encrypt = md5($password);
+
+       $email = filter_var($email,FILTER_SANITIZE_EMAIL);
+
+
+          $sql = "INSERT INTO signup (fullname, email, gender, contactNumber, state, password,confirmPassword)
+          VALUES ( '$fullname', '$email' , '$gender' , '$contactNumber' , '$state' ,'$encrypt' ,'$encrypt')";
+
+          if ($conn->query($sql) === TRUE) {
+              $_SESSION['email'] = $email;
+                  header('Location: homepage.html');
+                  exit;
+          } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+        } 
+       
+
+
+
+      $conn->close();
+
+
+
+      }
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -181,6 +308,7 @@ $(document).ready(function(){
 	});
 });
 
+
 $(document).ready(function(){
   $('#tosignup').on('click', function (e) {
   e.preventDefault();
@@ -220,6 +348,7 @@ $(document).ready(function(){
       margin: 30px;
       overflow: hidden;
       position: relative;
+
       padding: 0;
       float: left;
       width: 35%;
@@ -411,17 +540,26 @@ $(document).ready(function(){
               
               <!-- LOGIN FORM -->
             
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" id="login" name="loginform" method="POST">
+                <form id="login"  name="login" method="POST">
                   <h1>Login to Tickit.com</h1><hr>
                   <div id="loginwarning" class="warning">
                     <!-- INSERT LOGIN WARNINGS HERE -->
                   </div>
+                   <?php if (isset($error)){
+                         foreach ($error as $error){
+                           echo '<p style="color: red">'.$error.'</p>';
+                           }
+                         }
+                          if(isset($msg)){
+                           echo '<p style="color: red">'.$msg.'</p>';
+                          
+                          }?>
                   <div class="input-field">
                     <label for="email">Email</label>
                     <input type="text" name="email" placeholder="john@example.com"/>
                     <label for="password">Password</label> 
                     <input type="password" name="password" placeholder="******"/>
-                    <input type="submit" value="Login" class="button"/>
+                    <input type="submit" value="Login"  name="login"  class="button"/>
                     
                     <p class="text-p"> Not Yet Registered? <a href="#signup" id="tosignup">Sign Up</a> </p>
                   </div>
@@ -429,11 +567,33 @@ $(document).ready(function(){
                 
               <!-- SIGNUP FORM -->
             
-                <form action="#" id="signup" name="signupform" method="POST">
+                <form id="signup" name="signup" method="POST">
                   <h1>Sign Up on Tickit.com</h1><hr>
                   <div id="signupwarning" class="warning">
                     <!-- INSERT SIGNUP WARNINGS HERE -->
                   </div>
+                  <?php if (isset($err) && (count($err) > 0)){
+                         foreach ($err as $err){
+                           echo '<p style="color: red">'.$err.'</p>';
+                           }
+
+                           echo "
+                                <script>
+                                    $(document).ready(function(){
+                                  
+                                    
+                                    $('#signupbutton').addClass('active');
+                                    $('#loginbutton').removeClass('active');
+                                    
+                                    var href = $('#tosignup').attr('href');
+                                    $('.forms > form').hide();
+                                    $(href).fadeIn(500);
+                                  }); 
+
+                                </script>
+                                ";
+                              } 
+                          ?>
                   <div class="input-field">
                     <label for="fullName">Name</label> 
                     <input type="text" name="fullName" placeholder="John Doe" />
@@ -450,7 +610,7 @@ $(document).ready(function(){
                       <option value="Female">Female</option>
                       <option value="Others">Others</option>
                     </select>
-                    <select id="age" name="age" class="grid-item">
+                    <select id="age" name="state" class="grid-item">
                       <option value="-1">Select Age Group</option>
                       <option value="0-18">0-18</option>
                       <option value="19-35">19-35</option>
@@ -458,14 +618,15 @@ $(document).ready(function(){
                       <option value="50+">50+</option>
                     </select>
                     </div>
-                    <label for="password">Password</label> <p class="muted-text">(Password Must be Atleast 6 Characters Long)</p>
+                    <label for="password">Password</label> <p class="muted-text">(Password Must be Atleast 8 Characters Long)</p>
                     <input type="password" name="password" placeholder="******"/>
                     <label for="confirmPassword">Confirm Password</label> <p class="muted-text">(Password and Confirm Password Fields Must Match)</p>
                     <input type="password" name="confirmPassword" placeholder="******"/>
-                    <input type="submit" value="Sign up" class="button" />
+                    <input type="submit" value="Sign up" name="signup" class="button" />
                     <p class="text-p">Already Registered? <a href="#login" id="tologin">Login</a> </p>
                   </div>
                   </form>
+
             </div>
             </div>
         <footer style="bottom: 0;">
@@ -473,3 +634,4 @@ $(document).ready(function(){
         </footer>
     </body>
 </html>
+
