@@ -517,7 +517,7 @@ $(document).ready(function(){
 
         <div class="topnav" id="myTopnav" >
             <a href="#index" style="all: unset; cursor:pointer;">
-              <img src="https://images.squarespace-cdn.com/content/v1/5e545dcb9e9c1f4d126b626e/1591640052671-TFHTEMQAKH4U5XCSJ6ZH/ke17ZwdGBToddI8pDm48kH8jnivQrri4_607flPSyytZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7XaGPskfQtVutuSA2B-JW6w0snqoiCTQ9Q3rgETRWZR39EvkyA73q7fHP8suUG_dwQ/TickitLogo.Small.png" id="logo" style="zoom: 1.5;">
+              <img src="images/logo.png" id="logo" style="zoom: 0.8;">
             </a>
 
             <a href="login.html" id="loginpage"> Login/Signup</a>
