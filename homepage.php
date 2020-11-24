@@ -33,6 +33,18 @@ require('includes/config.php');
       crossorigin="anonymous"
     ></script>
   </head>
+  <style>
+    .card {
+      margin-bottom: 5%;
+    }
+    .price {
+      color: rgb(12, 51, 224);
+      font-weight: bold;
+    }
+    .poster {
+      height: 180px;
+    }
+    </style>
   <body>
     <!-- Navbar -->
 
@@ -62,6 +74,12 @@ require('includes/config.php');
             <a class="nav-link" href="#"
               >Home <span class="sr-only">(current)</span></a
             >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#movies">Movies</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
@@ -160,156 +178,77 @@ require('includes/config.php');
     <!-- Event Cards -->
 
     <div class="container text-center event-container">
-      <h3 class="event-category">Concerts</h3>
+      <h3 id="events" class="event-category">Events</h3>
       <br />
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="row flex-container">
+      <?php
+
+$sql = "SELECT * FROM events";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+
+    ?>
+    <div class="col-sm-4">
           <div class="card" style="width: 350px">
             <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
+              class="card-img-top poster"
+              src="./uploads/<?php echo $row['eventPoster']; ?>"
               alt="Card image"
               style="width: 100%"
             />
             <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
+              <h4 class="card-title"><?php echo $row['eventName']; ?></h4>
+              <p class="card-text"><?php echo $row['eventVenue']; ?> | <span class="price"> ₹<?php echo $row['eventPrice']; ?></span></p>
               <a href="#" class="btn btn-primary">Book Now</a>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
+    </div>
+ 
+<?php }
+} else {
+  echo "<tr><td colspan='7' style='text-align: center;'>No Movies Have Been Added Yet</td></tr>";
+}
+  ?>
       </div>
     </div>
+    
     <div class="container text-center event-container">
-      <h3 class="event-category">Concerts</h3>
+      <h3 id="movies" class="event-category">Movies</h3>
       <br />
       <div class="row">
-        <div class="col-sm-4">
+      <?php
+
+$sql = "SELECT * FROM movies";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+
+    ?>
+    <div class="col-sm-4">
           <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
+          <img
+              class="card-img-top poster"
+              src="./uploads/<?php echo $row['moviePoster']; ?>"
               alt="Card image"
               style="width: 100%"
             />
             <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
+              <h4 class="card-title"><?php echo $row['movieName']; ?></h4>
+              <p class="card-text"><?php echo $row['movieGenre']; ?> | <span class="price"> <?php echo $row['movieLanguage']; ?></span></p>
               <a href="#" class="btn btn-primary">Book Now</a>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="container text-center event-container">
-      <h3 class="event-category">Concerts</h3>
-      <br />
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card" style="width: 350px">
-            <img
-              class="card-img-top"
-              src="./images/concert1.jpg"
-              alt="Card image"
-              style="width: 100%"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Coldplay Concert</h4>
-              <p class="card-text">Mumbai, India.</p>
-              <a href="#" class="btn btn-primary">Book Now</a>
-            </div>
-          </div>
-        </div>
+ 
+<?php }
+} else {
+  echo "<tr><td colspan='7' style='text-align: center;'>No Movies Have Been Added Yet</td></tr>";
+}
+  ?>  
+                
       </div>
     </div>
     <br />
