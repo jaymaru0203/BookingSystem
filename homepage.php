@@ -34,15 +34,77 @@ require('includes/config.php');
     ></script>
   </head>
   <style>
+    body {
+      margin: 0;
+    }
+    /* Navbar */
+    .bg-dark {
+      background-color: #1f1f1f !important;
+    }
+    .btn-outline-success {
+      color: #e73137;
+      border-color: #e73137;
+    }
+    .btn-outline-success:hover {
+      background-color: #e73137;
+      border-color: #e73137;
+    }
+    #logo {
+      height: 3vw;
+      margin-left: 1vw;
+    }
+    .navbar {
+      padding: 0 1rem;
+    }
+
+    /* Carousel */
+    .carousel-inner img {
+      height: 23em;
+    }
+
+    /* Event Cards Container */
+    .event-container {
+      margin-top: 2em;
+    }
+    .btn-red {
+      color: #fff;
+      background-color: #e73137;
+      border: none;
+    }
+    .btn-blue {
+      color: #fff;
+      background-color: #0059a2;
+      border: none;
+    }
+    .btn-red:hover, .btn-blue:hover  {
+      color: #fff;
+      background-color: black;
+      border: none;
+    }
+    .event-category {
+      text-align: left;
+    }
     .card {
       margin-bottom: 5%;
     }
-    .price {
-      color: rgb(12, 51, 224);
+    /* .price {
+      color: grey;
       font-weight: bold;
-    }
+    } */
     .poster {
       height: 180px;
+    }
+    footer {
+      background-color: #1f1f1f;
+      color: white;
+      padding: 4%;
+    }
+    footer p {
+      margin: 0;
+    }
+    .height {
+      height: 30px;
+      padding: 0 10px;
     }
     </style>
   <body>
@@ -98,14 +160,14 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0 ">
           <input
-            class="form-control mr-sm-2"
+            class="form-control mr-sm-2 height"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
             Search
           </button>
         </form>
@@ -145,7 +207,7 @@ require('includes/config.php');
             </div>
           </div>
           <div class="carousel-item">
-            <img src="./images/concert3.jpg" class="d-block w-100" alt="..." />
+            <img src="./images/concert5.jpg" class="d-block w-100" alt="..." />
             <div class="carousel-caption d-none d-md-block">
               <h5>Sound Spirit Fest</h5>
               <p>
@@ -183,11 +245,11 @@ require('includes/config.php');
       <div class="row flex-container">
       <?php
 
-$sql = "SELECT * FROM events";
-$result = $conn->query($sql);
+    $sql = "SELECT * FROM events";
+    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
 
     ?>
     <div class="col-sm-4">
@@ -201,7 +263,9 @@ if ($result->num_rows > 0) {
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['eventName']; ?></h4>
               <p class="card-text"><?php echo $row['eventVenue']; ?> | <span class="price"> ₹<?php echo $row['eventPrice']; ?></span></p>
-              <a href="#" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-red">Book Now</a>
+              <a href="#" class="btn btn-blue">Know More</a>
+
             </div>
           </div>
     </div>
@@ -214,6 +278,8 @@ if ($result->num_rows > 0) {
       </div>
     </div>
     
+    <!-- Movie Cards -->
+
     <div class="container text-center event-container">
       <h3 id="movies" class="event-category">Movies</h3>
       <br />
@@ -238,7 +304,9 @@ if ($result->num_rows > 0) {
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['movieName']; ?></h4>
               <p class="card-text"><?php echo $row['movieGenre']; ?> | <span class="price"> <?php echo $row['movieLanguage']; ?></span></p>
-              <a href="#" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-red">Book Now</a>
+              <a href="#" class="btn btn-blue">Know More</a>
+
             </div>
           </div>
     </div>
@@ -256,7 +324,7 @@ if ($result->num_rows > 0) {
     <!-- Footer -->
 
     <footer class="container-fluid text-center">
-      <p>Footer Text</p>
+      <p>Copyright © <?php echo date("Y") ?> TickIt. All rights reserved</p>
     </footer>
   </body>
 </html>
