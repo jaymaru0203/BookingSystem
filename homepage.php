@@ -147,7 +147,7 @@ require('includes/config.php');
             <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="contact.php">Contact</a>
           </li>
           <?php if (isset($_SESSION['email']))
           { ?>
