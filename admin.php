@@ -208,10 +208,31 @@ require('includes/config.php');
           tr:nth-child(odd){
             background-color: #fff;
           }
+          .statistics{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 2vw auto;
+            grid-gap: 4vw;
+            padding: 2vw;
+          }
+          .cards{
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1vw;
+            height: 18vh;
+            text-align: center;
+            font-size: 20px;
+          }
+          .statText{
+            font-size: 35px;
+            color: #0059a2;
+          }
 
         </style>
 </head>
 <body>
+<?php if (isset($_SESSION['email']))
+{ ?>
 <div class="topnav">
     <img src="images/logo.png" id="logo">
     <div id="profile"><?php  echo $_SESSION['email'] ?></div>
@@ -226,7 +247,41 @@ require('includes/config.php');
 
 <div id="home" class="tabcontent">
 
-    STATS WILL BE DISPLAYED HERE IN TILES ABOUT NUMBER OF MOVIES, EVENTS AND USERS
+<div class="showAll">
+<h2>Statistics</h2>
+<div class="statistics">
+  <div class="cards">Users<br>
+  <b class="statText">
+  <?php
+  $sql1 = "SELECT * FROM signup";
+  $result = $conn->query($sql1); 
+  echo $result->num_rows; 
+  ?>
+  </b>
+  </div>
+  <div class="cards">Movies<br>
+  <b class="statText">
+  <?php
+  $sql2 = "SELECT * FROM movies";
+  $result = $conn->query($sql2); 
+  echo $result->num_rows; 
+  ?>
+  </b>
+  </div>
+  <div class="cards">Events<br>
+  <b class="statText">
+  <?php
+  $sql3 = "SELECT * FROM events";
+  $result = $conn->query($sql3); 
+  echo $result->num_rows; 
+  ?>
+  </b>
+  </div>
+  <div class="cards">Transactions<br>
+  <b class="statText">495</b>
+  </div>
+</div>
+</div>
 
 </div>
 
@@ -427,9 +482,51 @@ if ($result->num_rows > 0) {
 </div>
 
 <div id="users" class="tabcontent">
-  <h3>users</h3>
-  <p>users is the capital of Japan.</p>
+<div class="showAll">
+<h2>All Users</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email ID</th>
+    <th>Gender</th>
+    <th>Age Group</th>
+    <th>Mobile Number</th>
+    <th>Action</th>
+  </tr>
+  <?php
+
+$sql = "SELECT * FROM signup";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+
+    ?>
+<tr>
+    <td><?php echo $row['fullname']; ?></td>   
+    <td><?php echo $row['email']; ?></td>   
+    <td><?php echo $row['gender']; ?></td>   
+    <td><?php echo $row['state']; ?></td>   
+    <td><?php echo $row['contactNumber']; ?></td>
+    <td><a href="deleteUser.php?email=<?php echo $row['email']; ?>"><button style="padding: 5px;">Delete</button></a></td>
+  </tr>	
+  
+<?php }
+} else {
+  echo "<tr><td colspan='7' style='text-align: center;'>No Users Have Been Added Yet</td></tr>";
+}
+  ?>
+</table>
+
 </div>
+</div>
+
+<?php 
+}
+else{
+  echo "<center><h2>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE</h2></center>";
+}
+?>
 
 <script>
     function openCity(evt, cityName) {

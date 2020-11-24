@@ -22,7 +22,7 @@ if(isset($_POST['login'])){
             if($result1 -> num_rows > 0){
 
             $_SESSION['email'] = $email;
-            header('Location:admin.html');
+            header('Location:admin.php');
             exit;
 
             }
