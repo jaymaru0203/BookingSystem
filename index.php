@@ -516,7 +516,7 @@ $(document).ready(function(){
         <a href="#myTopnav"><img src="https://www.iconfinder.com/data/icons/arrows-part-3-3/32/arrow-top-1-512.png" id="top"></a>
 
         <div class="topnav" id="myTopnav" >
-            <a href="#index" style="all: unset; cursor:pointer;">
+            <a href="homepage.html" style="all: unset; cursor:pointer;">
               <img src="images/logo.png" id="logo" style="zoom: 0.8;">
             </a>
 

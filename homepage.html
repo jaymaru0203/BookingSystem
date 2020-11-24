@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <?php
+require('includes/config.php');
+
+?>
     <title>Home</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -65,6 +69,16 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
           </li>
+          <?php if (isset($_SESSION['email']))
+          { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+          <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">Login/Signup</a>
+          </li>
+          <?php } ?>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input

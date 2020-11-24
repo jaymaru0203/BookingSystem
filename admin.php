@@ -227,6 +227,28 @@ require('includes/config.php');
             font-size: 35px;
             color: #0059a2;
           }
+          .button1 {
+        border: 0;
+        outline: none;
+        border-radius: 0;
+        padding: 10px 0;
+        font-size: 18px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border: 3px solid #e73137;
+        border-radius: 7px;
+        color: #e73137;
+        cursor: pointer;
+        -moz-transition: all 0.4s ease-in-out;
+        -o-transition: all 0.4s ease-in-out;
+        -webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        width: 25%;
+        margin: auto auto;
+        zoom: 0.7;
+      }
+      .button1:hover, .button1:focus { background: #e73137; color: #fff; }
 
         </style>
 </head>
@@ -524,7 +546,7 @@ if ($result->num_rows > 0) {
 <?php 
 }
 else{
-  echo "<center><h2>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE</h2></center>";
+  echo "<center><h2 style='margin: 25vh; line-height: 3vw;'>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE<br>Go Back to Home Page<br><a href='homepage.html'><button type='submit' class='button1' value='Home'>HOME</button></a></h2></center>";
 }
 ?>
 
