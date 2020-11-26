@@ -255,8 +255,8 @@ require('includes/config.php');
 <body>
 <?php if (isset($_SESSION['email']))
 { ?>
-<div class="topnav">
-    <img src="images/logo.png" id="logo">
+<div class="topnav"><a href="homepage.php">
+    <img src="images/logo.png" id="logo"></a>
     <div id="profile"><?php  echo $_SESSION['email'] ?></div>
 </div>
 <div class="tab">
