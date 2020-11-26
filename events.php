@@ -131,25 +131,39 @@ require('includes/config.php');
 
     }
     .jumbotron {
-        width: 72rem !important;
+        width: 71rem !important;
         padding: 1rem !important;
         margin-top: 1%;
     }
-    #sortForm label {
+    #sortForm label, #filterForm label {
         font-size: 1.2rem;
     }
-
+    #sortForm button, #filterForm button {
+      padding: .250rem .75rem !important;
+    }
+    input[type="radio"] {
+      width: 2rem;
+    }
+    .filter1 {
+      color: #0059a2;
+      font-size: 1.5rem;
+    }
+    #clear {
+      display: inline-block;
+    }
     </style>
   <body>
   <?php
-    $sort = $filter = "";
+    $sort = $filter = $search = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!empty($_POST["sort"])) {
             $sort = $_POST["sort"];
         } else if(!empty($_POST["filter"])) {
             $filter = $_POST["filter"];
-        }
+        } else if(!empty($_POST["search"])) {
+          $search = $_POST["search"];
+      }
 
   } ?>
     
@@ -177,7 +191,7 @@ require('includes/config.php');
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#"
+            <a class="nav-link" href="homepage.php"
               >Home </a>
           </li>
           <li class="nav-item active">
@@ -187,7 +201,7 @@ require('includes/config.php');
             <a class="nav-link" href="movies.php">Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.php">Contact</a>
@@ -203,10 +217,11 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
+        <form class="form-inline my-2 my-lg-0 " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
           <input
             class="form-control mr-sm-2 height"
             type="search"
+            name="search"
             placeholder="Search"
             aria-label="Search"
           />
@@ -278,8 +293,10 @@ require('includes/config.php');
 
   <div id="filter" class="col-10 sort-div">
   <a class="btn btn-custom btn-md" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fas fa-sort-amount-down"></i> Sort By</a>
-
   <button class="btn btn-custom btn-md" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fas fa-filter"></i> Filter By</button>
+  <form id="clear" method="post"> 
+  <button class="btn btn-custom btn-md" name="clear" onclick="clear()" type="submit"><i class="fas fa-times"></i> Clear</button>
+  </form>
   </div>
   </div>
 <div class="row">
@@ -291,27 +308,27 @@ require('includes/config.php');
     <div class="row">
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventPriceLow"> Price <i class="fas fa-sort-numeric-down"></i>
+    <input type="radio" name="sort" value="eventPriceLow"> Price <i class="fas fa-sort-numeric-down"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventPriceHigh"> Price <i class="fas fa-sort-numeric-up-alt"></i></i>
+    <input type="radio" name="sort" value="eventPriceHigh"> Price <i class="fas fa-sort-numeric-up-alt"></i></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventDateTimeLow"> Date <i class="fas fa-sort-numeric-down"></i>
+    <input type="radio" name="sort" value="eventDateTimeLow"> Date <i class="fas fa-sort-numeric-down"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventDateTimeHigh"> Date <i class="fas fa-sort-numeric-up-alt"></i>
+    <input type="radio" name="sort" value="eventDateTimeHigh"> Date <i class="fas fa-sort-numeric-up-alt"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventNameLow"> Title <i class="fas fa-sort-alpha-down"></i>
+    <input type="radio" name="sort" value="eventNameLow"> Title <i class="fas fa-sort-alpha-down"></i>
     </label>
     </div>
     <div class="col-2">
@@ -326,32 +343,32 @@ require('includes/config.php');
     <div class="jumbotron">
 
     <form id="filterForm" name="filter" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-    <h5>Location</h5>
+    <h5 class="filter1">Location</h5>
     <div class="row">
 
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Mumbai"> Mumbai
+    <input type="radio" name="filter" value="Mumbai"> Mumbai
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Delhi"> Delhi
+    <input type="radio" name="filter" value="Delhi"> Delhi
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="KJSCE"> KJSCE
+    <input type="radio" name="filter" value="KJSCE"> KJSCE
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="India"> India
+    <input type="radio" name="filter" value="India"> India
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Phoenix"> Phoenix
+    <input type="radio" name="filter" value="Phoenix"> Phoenix
     </label>
     </div>
     <div class="col-2">
@@ -385,6 +402,9 @@ if($sort != "") {
 } else if($filter != "") {
     $loc = "'%" . $filter . "%'";
     $sql = "SELECT * FROM events WHERE eventVenue LIKE $loc";
+} else if($search != "") {
+  $word = "'%" . $search . "%'";
+  $sql = "SELECT * FROM events WHERE eventName LIKE $word";
 } else {
     $sql = "SELECT * FROM events";
 }
@@ -421,6 +441,18 @@ if($sort != "") {
     </div>
    
     <br />
+
+    <?php
+
+    if(array_key_exists('clear', $_POST)) { 
+      clear(); 
+    }
+    
+    function clear() {
+      $sql = "SELECT * FROM events";
+    }
+    
+    ?>
 
     <!-- Footer -->
 
