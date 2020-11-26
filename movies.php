@@ -131,25 +131,49 @@ require('includes/config.php');
 
     }
     .jumbotron {
-        width: 72rem !important;
+        width: 71rem !important;
         padding: 1rem !important;
         margin-top: 1%;
     }
-    #sortForm label {
+    #sortForm label, #filterForm label {
         font-size: 1.2rem;
+    }
+    #sortForm button, #filterForm button {
+      padding: .250rem .75rem !important;
+    }
+    input[type="radio"] {
+      width: 2rem;
+    }
+    .filter1, .filter2 {
+      color: #0059a2;
+      font-size: 1.5rem;
+      margin-bottom: 1%;
+    }
+    .filter2 {
+      margin-top: 1.5%;
+    }
+    #clear {
+      display: inline-block;
     }
 
     </style>
   <body>
   <?php
-    $sort = $filter = "";
+    $sort = $filterGenre = $filterLanguage = $search = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!empty($_POST["sort"])) {
             $sort = $_POST["sort"];
-        } else if(!empty($_POST["filter"])) {
-            $filter = $_POST["filter"];
-        }
+        } else if(!empty($_POST["filterGenre"]) && !empty($_POST["filterLanguage"])) {
+          $filterGenre = $_POST["filterGenre"];
+          $filterLanguage = $_POST["filterLanguage"];
+      } else if(!empty($_POST["filterGenre"])) {
+            $filterGenre = $_POST["filterGenre"];
+        } else if(!empty($_POST["filterLanguage"])) {
+          $filterLanguage = $_POST["filterLanguage"];
+      } else if(!empty($_POST["search"])) {
+        $search = $_POST["search"];
+    }
 
   } ?>
     
@@ -187,7 +211,7 @@ require('includes/config.php');
             <a class="nav-link" href="movies.php">Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.php">Contact</a>
@@ -203,10 +227,11 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
+        <form class="form-inline my-2 my-lg-0 " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
           <input
             class="form-control mr-sm-2 height"
             type="search"
+            name="search"
             placeholder="Search"
             aria-label="Search"
           />
@@ -236,13 +261,13 @@ require('includes/config.php');
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./images/sale2.jpg" class="d-block w-100" alt="..." />
+            <img src="./images/sale7.jpg" class="d-block w-100" alt="..." />
           </div>
           <div class="carousel-item">
-            <img src="./images/sale4.jpg" class="d-block w-100" alt="..." />
+            <img src="./images/sale6.jpg" class="d-block w-100" alt="..." />
           </div>
           <div class="carousel-item">
-            <img src="./images/sale5.jpg" class="d-block w-100" alt="..." />
+            <img src="./images/sale10.jpg" class="d-block w-100" alt="..." />
           </div>
         </div>
         <a
@@ -278,8 +303,10 @@ require('includes/config.php');
 
   <div id="filter" class="col-10 sort-div">
   <a class="btn btn-custom btn-md" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fas fa-sort-amount-down"></i> Sort By</a>
-
   <button class="btn btn-custom btn-md" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fas fa-filter"></i> Filter By</button>
+  <form id="clear" method="post"> 
+  <button class="btn btn-custom btn-md" name="clear" onclick="clear()" type="submit"><i class="fas fa-times"></i> Clear</button>
+  </form>
   </div>
   </div>
 <div class="row">
@@ -291,27 +318,27 @@ require('includes/config.php');
     <div class="row">
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventPriceLow"> Price <i class="fas fa-sort-numeric-down"></i>
+    <input type="radio" name="sort" value="eventPriceLow"> Price <i class="fas fa-sort-numeric-down"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventPriceHigh"> Price <i class="fas fa-sort-numeric-up-alt"></i></i>
+    <input type="radio" name="sort" value="eventPriceHigh"> Price <i class="fas fa-sort-numeric-up-alt"></i></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventDateTimeLow"> Date <i class="fas fa-sort-numeric-down"></i>
+    <input type="radio" name="sort" value="eventDateTimeLow"> Date <i class="fas fa-sort-numeric-down"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventDateTimeHigh"> Date <i class="fas fa-sort-numeric-up-alt"></i>
+    <input type="radio" name="sort" value="eventDateTimeHigh"> Date <i class="fas fa-sort-numeric-up-alt"></i>
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="sort" value="eventNameLow"> Title <i class="fas fa-sort-alpha-down"></i>
+    <input type="radio" name="sort" value="eventNameLow"> Title <i class="fas fa-sort-alpha-down"></i>
     </label>
     </div>
     <div class="col-2">
@@ -326,38 +353,72 @@ require('includes/config.php');
     <div class="jumbotron">
 
     <form id="filterForm" name="filter" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-    <h5>Genre</h5>
+    <h5 class="filter1">Genre</h5>
     <div class="row">
 
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Action"> Action
+    <input type="radio" name="filterGenre" value="Action"> Action
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Comedy"> Comedy
+    <input type="radio" name="filterGenre" value="Comedy"> Comedy
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Drama"> Drama
+    <input type="radio" name="filterGenre" value="Drama"> Drama
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Romance"> Romance
+    <input type="radio" name="filterGenre" value="Romance"> Romance
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="checkbox" name="filter" value="Sci-Fi"> Sci-Fi
+    <input type="radio" name="filterGenre" value="Sci-Fi"> Sci-Fi
+    </label>
+    </div>
+    <div class="col-2">
+    </div>
+    </div>
+
+
+    <h5 class="filter2">Language</h5>
+    <div class="row">
+
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterLanguage" value="English"> English
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterLanguage" value="Hindi"> Hindi
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterLanguage" value="Marathi"> Marathi
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterLanguage" value="Gujarati"> Gujarati
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterLanguage" value="Bengali"> Bengali
     </label>
     </div>
     <div class="col-2">
     <button type="submit" class="btn btn-danger">Filter Movies</button>
     </div>
     </div>
+
 
     </form>
     </div>
@@ -382,9 +443,20 @@ if($sort != "") {
         $sql = "SELECT * FROM events ORDER BY eventName ASC";
     }
     
-} else if($filter != "") {
-    $genre = "'".$filter."'";
+} else if($filterGenre != "" && $filterLanguage != "") {
+  $genre = "'".$filterGenre."'";
+  $language = "'".$filterLanguage."'";
+
+  $sql = "SELECT * FROM movies WHERE movieGenre=$genre AND movieLanguage=$language";
+} else if($filterGenre != "") {
+    $genre = "'".$filterGenre."'";
     $sql = "SELECT * FROM movies WHERE movieGenre=$genre";
+} else if($filterLanguage != "") {
+  $language = "'".$filterLanguage."'";
+  $sql = "SELECT * FROM movies WHERE movieLanguage=$language";
+} else if($search != "") {
+  $word = "'%" . $search . "%'";
+  $sql = "SELECT * FROM movies WHERE movieName LIKE $word";
 } else {
     $sql = "SELECT * FROM movies";
 }
@@ -421,6 +493,18 @@ if($sort != "") {
     </div>
    
     <br />
+
+    <?php
+
+    if(array_key_exists('clear', $_POST)) { 
+      clear(); 
+    }
+    
+    function clear() {
+      $sql = "SELECT * FROM movies";
+    }
+    
+    ?>
 
     <!-- Footer -->
 
