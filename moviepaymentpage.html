@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<a href="https://icons8.com/icon/DJn0I2iytpit/card-verification-value"></a>
+
+<style type="text/css">
+
+	* {box-sizing: border-box}
+body {
+	font-family: Verdana, sans-serif;
+    margin:0;
+ /*   background-image: url("https://images.unsplash.com/photo-1580478341213-659047bb025c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzJ8fG1vdmllJTIwdGhlYXRlcnxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
+*/
+background: rgba(102, 3, 0, 0.9) 
+
+
+}
+
+  .main{
+		width:1000px;
+		margin-left:17%;
+		margin-right:20%;
+		margin-top:1%;
+		background-color: #ffffff;
+		display: flex;
+		border-radius:10px;
+		flex-flow: row wrap;
+		margin-bottom: 2%;
+	}
+
+  .left{
+  	 /*flex: 1;*/
+  	 height: 900px;
+  	 width:500px;
+    }
+
+    .image {
+    width: 100%;
+    height:100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 0 0 1px #e0e0e0, 0 2px 4px 0 rgba(0,0,0,.07), 0 1px 1.5px 0 rgba(0,0,0,.05);
+}
+
+
+  .right{
+  	/*flex: 1;*/
+  	display: flex;
+  	flex-direction: column;
+  	height:830px;
+  	width: 500px;
+     }
+
+  #payment-form{
+  	 	margin: 3% 10% 0% 10%; 
+  	 		font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);
+  	 
+  }
+  #div1,#div4{
+  	 	margin: 3% 10% 0% 10%; 
+  	 		font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);	
+  	 
+  }
+
+  .order{
+  	
+  	background-color:#f7f7fa;
+  	padding-bottom: 5%;
+  	border-top-right-radius: 10px;
+  	border-bottom: solid;
+  	border-bottom-color: #e0e0e0;
+  	height: 200px; 
+  
+  }
+
+  .tag{
+  	font-size: 20px;
+  	color:hsla(0,0%,10%,.9); 
+  	margin-left: 10%;
+  	margin-top:3%;
+  }
+  .price-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto auto auto;
+  font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,20%,.9);
+}
+
+  .grid-item{
+  	margin-left: 20%;
+  }
+
+  .grid-item1{
+  	padding-left: 60%;
+  }
+
+  .grid-item0{
+  	margin-left: 20%;
+  	font-size: 20px;
+  	 color: hsla(0,5%,5%,.9);
+  }
+
+
+
+  .grid-item2{
+  	padding-left: 60%;
+  	font-size: 20px;
+  	 color: green;
+  }
+
+
+  .card-holder{
+  	font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);
+  	padding-top:2%;	
+  	position: relative;
+  }
+
+  .card-number,.address,.email{
+  	font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);
+  }
+
+  .icon{
+  	color: #bababf;
+  	min-width: 25px;
+  }
+
+   #card-number ,#card-holder ,#cvv,#month,#city,#address,#state,#email,#zip,#phone{
+  	padding: 8px 12px;
+  	width: 100%;
+    height: 44px;
+    font-size: 16px;
+    line-height: 1.5;
+  	border-radius: 5px;
+  	border: 0;
+    box-shadow: 0 0 0 1px #e0e0e0, 0 2px 4px 0 rgba(0,0,0,.07), 0 1px 1.5px 0 rgba(0,0,0,.05);
+    transition: box-shadow .08s ease-in,color .08s ease-in; 
+   
+  }
+  .card-number input{
+  	padding: 8px 12px;
+  	width: 100%;
+    height: 44px;
+    font-size: 16px;
+    line-height: 1.5;
+  	border-radius: 5px;
+  	border: 0;
+    box-shadow: 0 0 0 1px #e0e0e0, 0 2px 4px 0 rgba(0,0,0,.07), 0 1px 1.5px 0 rgba(0,0,0,.05);
+    transition: box-shadow .08s ease-in,color .08s ease-in;
+
+  }
+
+
+  #card-holder{
+  	background-image:url("https://img.icons8.com/material/30/000000/person-male.png");
+     background-repeat:no-repeat;
+     background-position:8px;
+     padding-left:40px;
+  }
+  .cvv input{
+     background-image:url("https://img.icons8.com/dotty/30/000000/card-verification-value.png");
+     background-repeat:no-repeat;
+     background-position:right;
+ 
+  }
+
+  #month:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #card-holder:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #card-number:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #cvv:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #address:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #email:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #city:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #state:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #zip:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  #phone:hover{
+  	box-shadow: 0 0 3px #515151;
+  }
+  .month,.city,.zip input{
+  	width: 90%;
+  }
+
+  .cvv,.state,.phone input{
+  	width: 100%;
+  }
+
+  .divide{
+  	display: flex;
+  	
+  }
+
+  .month,.city,.zip{
+  	font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);
+  	padding-top:2%;
+  	flex: 1;
+
+  }
+
+  .cvv,.state,.phone{
+  	font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+    color: hsla(0,0%,10%,.9);
+  	padding-top:2%;	
+  	padding-left:3%;
+    flex: 1;
+  }
+
+  .button1{
+  	margin-top: 4%;
+  	width: 100%;
+  	cursor: pointer;
+  	border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius:5px;
+    background-color: #e34922;
+    padding:8px;
+  }
+
+  .button1:hover {
+  box-shadow: 0 0 3px #515151;
+  background-color: #d42619;
+  
+}
+
+  .info{
+  	color: #bababf;
+  	font-size:13px;
+  	padding-left:20%; 
+
+  }
+
+  .option-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: relative;
+  border-radius: 50%;
+  top:4px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  transition: all 0.15s ease-out 0s;
+  background: #cbd1d8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 0.5rem;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+}
+.option-input:hover {
+  background: #9faab7;
+}
+.option-input:checked {
+  background: #228ef2;
+}
+.option-input:checked::before {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  content: '✔';
+  display: inline-block;
+  font-size: 15px;
+  text-align: center;
+  line-height: 20px;
+}
+.option-input:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: #40e0d0;
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+.option-input.radio {
+  border-radius: 50%;
+}
+.option-input.radio::after {
+  border-radius: 50%;
+}
+
+.pay1,.pay2{
+	padding-left: 10%;
+	padding-right: 5%;
+}
+.pay1{
+	padding-top: 3%;
+	background-color: #ebeff2;
+	padding-bottom: 3%;
+}
+.pay2{
+	padding-top: 3%;
+	background-color: #ebeff2;
+	padding-bottom: 3%;
+
+}
+.pay2 img{
+    float: right;
+    padding-right: 2%;
+    width: 30px;
+    height: 30px;
+}
+
+.add{
+	padding-left: 10%;
+}
+
+
+  @media screen and (max-width: 1200px) {
+  	.left{width:100%;height:400px;border-top-right-radius:10px; }
+  	.right{width:100%;height:900px;}
+  	.main{width: 90%;margin-left: 5%;margin-right:5%; }
+  	.image{border-top-right-radius:10px; }
+
+  }
+
+   @media screen and (min-width: 1200px) and (max-width: 1500px) {
+  	.main{margin-left: 5%;}
+
+  }
+
+</style></head>
+
+<body>
+<div class="main">
+  	
+ <div class="left">
+    	<img class="image" src="https://images.unsplash.com/photo-1559570278-eb8d71d06403?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dGhlYXRlcnxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60" >
+    	
+ </div>
+  	
+ <div class="right">
+  	
+
+   <div class="order">
+  		<p class="tag">Ticket</p>
+  		<div class="price-grid">
+                  <div class="grid-item">Subtotal</div>
+                  <div class="grid-item1">Rs. <?php echo $_COOKIE['subt']; ?></div>
+                  
+
+                  <div class="grid-item">Taxes</div>
+                  <div class="grid-item1">Rs. <?php echo 18*$_COOKIE['subt']/100; ?></div>
+                 
+                  
+                  <div class="grid-item">Internet Handling Charges</div>
+                  <div class="grid-item1">Rs. 30</div>
+                         
+
+                  <div class="grid-item">Discount</div>
+                  <div class="grid-item1">-₹ 40</div>
+                  
+                  
+                  <div class="grid-item0">Total</div>
+                  <div class="grid-item2" id="total">Rs. <?php echo (18*$_COOKIE['subt']/100)-10+$_COOKIE['subt']; ?></div>
+                 
+        </div>
+
+   </div>
+  
+    <label class="pay2">
+Credit /Debit Cards</span><img src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d8844094130711885b5e41b28c9848f.svg"><img src="https://js.stripe.com/v3/fingerprinted/img/visa-365725566f9578a9589553aa9296d178.svg"><img src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a6ca1717c.svg">
+    </label>
+	<form action="final.html" method="post" id="payment-form">
+
+		<div class="card-number">Card Number<br>
+		<input type="text" name="card-number" id="card-number">
+
+	    </div>
+		<br>
+
+	<div class="card-holder" >Card Holder Name<br>
+		
+	<input type="text" name="card-holder"  id="card-holder">
+    </div>
+
+    <br>
+    <div class="divide">
+
+        <div class="month">Expiration Date<br>
+
+        <input type="text" name="month" id="month" placeholder="  MM / YY" maxlength="4" size="4" />
+        </div>
+  
+
+         <div class="cvv">CVV<br>
+         <input type="text" name="cvv" id="cvv" placeholder="* * *">
+         </div>
+    
+    </div>
+    <br>
+    <a href="final.html"><button class="button1">Confirm Payment</button></a><br>
+    <p class="info"><i class="fa fa-lock" style="font-size:15px"></i>  Your card payment is encrypted</p>
+
+
+    
+    
+
+    </form>
+
+ <label class="pay2">
+  Paytm</span><img src="https://www.searchpng.com/wp-content/uploads/2019/02/Paytm-Logo-With-White-Border-PNG-image.png" style="width: 100px;">
+      </label>
+  
+  
+      
+  
+    <form action="final.html" method="post" id="payment-form">
+  
+      <div class="card-number">Mobile Number<br>
+      <input type="text" name="mobile-number" id="mobile-number">
+  
+        </div>
+
+      <a href="final.html"><button class="button1">Confirm Payment</button></a><br>
+
+      </form>
+      </div>
+   </div>
+
+</body>
+
+</body>
+</html>  

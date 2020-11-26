@@ -1,0 +1,195 @@
+<?php
+
+  $subtotal = $_POST['number']*$_POST['price'];
+  setcookie('subt', $subtotal, time()+3600);
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <?php
+require('includes/config.php');
+
+?>
+    <title>Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="checkoutpage.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  </head>
+  <body>
+    <!-- Navbar -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">
+          <img
+            id="logo"
+            src="images/logo.png"
+            id="logo"
+            style="zoom: 0.6; margin: 12px auto;"
+          />
+        </a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#movies">Movies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.php">Contact</a>
+          </li>
+          <?php if (isset($_SESSION['email']))
+          { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+          <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">Login/Signup</a>
+          </li>
+          <?php } ?>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 ">
+          <input
+            class="form-control mr-sm-2 height"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <?php 
+$id = $_GET['id'];
+$sql = "SELECT * FROM movies WHERE id=$id";
+$result = $conn->query($sql);
+while($row = $result->fetch_assoc()) {
+?>
+
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+          <div class="st_dtts_left_main_wrapper float_left">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="st_dtts_ineer_box float_left">
+                  <ul>
+                    <li><span class="dtts1">Movie</span>  <span class="dtts2"><?php echo $row['movieName'] ?></span>
+                    </li>
+                    <li><span class="dtts1">Date</span>  <span class="dtts2"><?php if( strtotime($_POST['date']) >= strtotime('now') ) {echo $_POST['date'];}
+                      else{echo 'Invalid Date'; header('Location: ' . $_SERVER['HTTP_REFERER']);
+                      exit();}?></span>
+                    </li>
+                    <li><span class="dtts1">Time</span>  <span class="dtts2"><?php echo $_POST['show'] ?></span>
+                    </li>
+                    <li><span class="dtts1">Theater</span>  <span class="dtts2"><?php echo $_POST['theatre'] ?></span>
+                    </li>
+                    <li><span class="dtts1">Seat</span>  <span class="dtts2">PLATINUM -  (<?php echo $_POST['number'] ?> Tickets) </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="st_cherity_section float_left">
+                  <div class="st_cherity_img float_left">
+                    <img src="https://lh3.googleusercontent.com/NnpueGmWpsEjN4E83Q7vrVhtj7q5BedUKiftNbLCbJAsRjxYV_Z-PWrk_Vi4dwxJ54zDEh3NKZTE_YoCn60eB-KrOA=w800" alt="img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="st_dtts_bs_wrapper float_left">
+                <div class="st_dtts_bs_heading float_left">
+                  <p>Booking summary</p>
+                </div>
+                <div class="st_dtts_sb_ul float_left">
+                  <ul>
+                    <li>Platinum
+                      <br>( <?php echo $_POST['number'] ?> Tickets ) <span> <?php echo $_POST['number'] ?> * Rs. <?php echo $_POST['price'] ?></span>
+                    </li>
+                    <li>
+                      <span>
+                        Rs. <?php echo $_POST['number']*$_POST['price']; ?>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="st_dtts_sb_h2 float_left">
+                  <h3>Sub total <span>Rs. <?php echo $_POST['number']*$_POST['price']; ?></span></h3>
+                  <h4>Current State is <span>Maharashtra</span></h4>
+                  
+                </div>
+
+               <div class="justify-content-center mt-5">
+               <a href="moviepaymentpage.html"><button class="buttmain" type="submit">Proceed</button></a>
+              </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <?php
+  }
+  ?>
+
+
+</body>
+</html>

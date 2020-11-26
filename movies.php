@@ -404,9 +404,9 @@ if($sort != "") {
             />
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['movieName']; ?></h4>
-              <p class="card-text"><?php echo $row['movieGenre']; ?> | <span class="price"> <?php echo $row['movieLanguage']; ?></span></p>
-              <a href="#" class="btn btn-red">Book Now</a>
-              <a href="#" class="btn btn-blue">Know More</a>
+              <p class="card-text"><?php echo $row['movieGenre']; ?> | <span class="price"> <?php echo $row['movieLanguage']; ?> - 2020</span></p>
+              <a href="theatres.php?id=<?php echo $row['id']; ?>" class="btn btn-red">Book Now</a>
+              <a href="moviepage.html?id=<?php echo $row['id']; ?>" class="btn btn-blue">Know More</a>
 
             </div>
           </div>

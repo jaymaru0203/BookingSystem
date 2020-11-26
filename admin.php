@@ -341,7 +341,7 @@ require('includes/config.php');
       </select><br>
     </div>
    
-    <label for="movieTrailer">Movie Trailer Link <p class="muted-text">(Kindly enter Youtube Video Link of the Trailer)</p></label>
+    <label for="movieTrailer">Movie Trailer Link <p class="muted-text">(Kindly enter EMBEDDED Youtube Video Link of the Trailer)</p></label>
     <input type="text" name="movieTrailer" id="movieTrailer" placeholder="Movie Trailer Link"><br>
 
     <label for="moviePoster">Movie Poster <p class="muted-text">(Kindly Upload an Image file of less than 5000kb Size)</p></label>

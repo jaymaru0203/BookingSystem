@@ -221,18 +221,19 @@ input:checked+label{
       </div>
     </nav>
     <?php
-                
+    $id = $_GET['id'];
+          $sql = "SELECT * FROM movies WHERE id=$id";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()) {
     ?>
     <center><br>
-    <h3>Movie Title in Center</h3>
-    <h5 class="description">Language | Genre - 2020</h5><br></center>
+    <h3><?php echo $row['movieName']; ?></h3>
+    <h5 class="description"><?php echo $row['movieLanguage']; ?> | <?php echo $row['movieGenre']; ?> - 2020</h5><br></center>
     <div class="containerMain">
-      <h4 style="text-align:center; margin: 10px;">Choose a Theatre and Show Time</h4>
-
-
-
-            <form action="checkout.php" method="POST" enctype="multipart/form-data">
-            <br><br><br>
+      <h3 style="text-align:center; margin: 10px;">
+      Choose a Theatre and Show Time 
+    </h3><br>
+            <form action="moviecheckoutpage.html?id=<?php echo $row['id']; ?>" method="POST" enctype="multipart/form-data">
               <h5>PVR Phoenix Marketcity, Kurla</h5>
                 <input type="radio" class="button2" name="show" value="12:30" onclick="number1()"id="a1">
                 <label for="a1">12:30</label>
@@ -247,19 +248,20 @@ input:checked+label{
                 <label for="a4">20:15</label>
                 <br><br>
               <div id="1" style="display: none;">
-              <h6>Price: Rs. 150<br>
+              <h6>Price: <b style="color: #e73137; font-size:larger;">Rs. 150</b><br>
                 Number of Tickets: 
-                <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;"></h6>
+                <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;" required></h6>
+                <h6>Select a Date: <input type="date" name="date" id="date" required></h6><br>
                 <input type="hidden" name="theatre" value="PVR Phoenix Marketcity, Kurla">
                 <input type="hidden" name="price" value="150">
-                <button type="submit" class="button1">Checkout</button>
+                <button type="submit" class="button1">Checkout</button><br>
               </div><br>
             </form>
 
 
 
 
-              <form action="checkout.php" method="POST" enctype="multipart/form-data">
+              <form action="moviecheckoutpage.html?id=<?php echo $row['id']; ?>" method="POST" enctype="multipart/form-data">
               <h5>Big Cinemas R-City, Ghatkopar</h5>
               <input type="radio" class="button2" name="show" value="09:30" onclick="number2()" id="b1">
               <label for="b1">09:30</label>
@@ -277,15 +279,16 @@ input:checked+label{
               <label for="b7">23:20</label>
               <br><br>
               <div id="2" style="display: none;">
-              <h6>Price: Rs. 220<br>Number of Tickets: 
-              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;"></h6>
+              <h6>Price: <b style="color: #e73137; font-size:larger;">Rs. 220</b><br>Number of Tickets: 
+              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;" required></h6>
+              <h6>Select a Date: <input type="date" name="date" id="date" required></h6><br>
               <input type="hidden" name="theatre" value="Big Cinemas R-City, Ghatkopar">
               <input type="hidden" name="price" value="220">
-              <button type="submit" class="button1">Checkout</button>
+              <button type="submit" class="button1" onclick="DS()">Checkout</button><br>
               </div><br>
             </form>
 
-            <form action="checkout.php" method="POST" enctype="multipart/form-data">
+            <form action="moviecheckoutpage.html?id=<?php echo $row['id']; ?>" method="POST" enctype="multipart/form-data">
               <h5>Fun Cinemas, Chembur</h5>
               <input type="radio" class="button2" name="show" value="13:30" onclick="number3()" id="c1">
               <label for="c1">13:30</label>
@@ -298,14 +301,15 @@ input:checked+label{
               <input type="radio" class="button2" name="show" value="22:40" onclick="number3()" id="c5">
               <label for="c5">22:40</label><br><br>
               <div id="3" style="display: none;">
-              <h6>Price: Rs. 180<br>Number of Tickets:
-              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;"></h6>
+              <h6>Price: <b style="color: #e73137; font-size:larger;">Rs. 180</b><br>Number of Tickets:
+              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;" required></h6>
+              <h6>Select a Date: <input type="date" name="date" id="date" required></h6><br>
               <input type="hidden" name="theatre" value="Fun Cinemas, Chembur">
               <input type="hidden" name="price" value="180">
-              <button type="submit" class="button1">Checkout</button>
+              <button type="submit" class="button1" onclick="DS()">Checkout</button><br>
               </div><br></form>
 
-              <form action="checkout.php" method="POST" enctype="multipart/form-data">
+              <form action="moviecheckoutpage.html?id=<?php echo $row['id']; ?>" method="POST" enctype="multipart/form-data">
               <h5>Plaza, Dadar</h5>
               <input type="radio" class="button2" name="show" value="09:00" onclick="number4()" id="d1">
               <label for="d1">09:00</label>
@@ -318,14 +322,15 @@ input:checked+label{
               <input type="radio" class="button2" name="show" value="21:00" onclick="number4()" id="d5">
               <label for="d5">21:00</label><br><br>
               <div id="4" style="display: none;">
-              <h6>Price: Rs. 90<br>Number of Tickets: 
-              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;"></h6>
+              <h6>Price: <b style="color: #e73137; font-size:larger;">Rs. 90</b><br>Number of Tickets: 
+              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;" required></h6>
+              <h6>Select a Date: <input type="date" name="date" id="date" required></h6><br>
               <input type="hidden" name="theatre" value="Plaza Dadar">
               <input type="hidden" name="price" value="90">
-              <button type="submit" class="button1">Checkout</button>
+              <button type="submit" class="button1" onclick="DS()">Checkout</button><br>
               </div><br></form>
 
-              <form action="checkout.php" method="POST" enctype="multipart/form-data">
+              <form action="moviecheckoutpage.html?id=<?php echo $row['id']; ?>" method="POST" enctype="multipart/form-data">
               <h5>PVR Gold - High Street Phoenix Lower Parel</h5>
               <input type="radio" class="button2" name="show" value="11:40" onclick="number5()" id="e1">
               <label for="e1">11:40</label>
@@ -334,13 +339,16 @@ input:checked+label{
               <input type="radio" class="button2" name="show" value="19:00" onclick="number5()" id="e3">
               <label for="e3">19:00</label><br><br>
               <div id="5" style="display: none;">
-              <h6>Price: Rs. 320<br>Number of Tickets:
-              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;"></h6>
+              <h6>Price: <b style="color: #e73137; font-size:larger;">Rs. 320</b><br>Number of Tickets:
+              <input type="number" name="number" min="1" max="10" style="background-color: #fff; margin:5px 20px;" required></h6>
+              <h6>Select a Date: <input type="date" name="date" id="date" required></h6><br>
               <input type="hidden" name="theatre" value="PVR Gold - High Street Phoenix Lower Parel">
               <input type="hidden" name="price" value="320">
-              <button type="submit" class="button1">Checkout</button>
+              <button type="submit" class="button1" onclick="DS()">Checkout</button><br>
               </div><br></form>
-
+              <?php
+            }
+            ?>
             </div><br><br>
             <footer style="bottom: 0;">
             Copyright @2020 Tickit.com. All Rights Reserved
@@ -369,4 +377,5 @@ input:checked+label{
       return false;
     }
   </script>
+  
 </html>

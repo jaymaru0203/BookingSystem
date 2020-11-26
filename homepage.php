@@ -263,8 +263,7 @@ require('includes/config.php');
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['eventName']; ?></h4>
               <p class="card-text"><?php echo $row['eventVenue']; ?> | <span class="price"> ₹<?php echo $row['eventPrice']; ?></span></p>
-              <a href="#" class="btn btn-red">Book Now</a>
-              <a href="#" class="btn btn-blue">Know More</a>
+              <a href="eventpage.html?id=<?php echo $row['id']; ?>" class="btn btn-red">Book Now</a>
 
             </div>
           </div>
@@ -304,8 +303,8 @@ if ($result->num_rows > 0) {
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['movieName']; ?></h4>
               <p class="card-text"><?php echo $row['movieGenre']; ?> | <span class="price"> <?php echo $row['movieLanguage']; ?></span></p>
-              <a href="#" class="btn btn-red">Book Now</a>
-              <a href="#" class="btn btn-blue">Know More</a>
+              <a href="theatres.php?id=<?php echo $row['id']; ?>" class="btn btn-red">Book Now</a>
+              <a href="moviepage.html?id=<?php echo $row['id']; ?>" class="btn btn-blue">Know More</a>
 
             </div>
           </div>
