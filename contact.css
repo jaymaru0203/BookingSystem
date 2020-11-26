@@ -67,7 +67,7 @@
     font-size: 0.625rem;
   }
   
-  form {
+  .forms {
     width: 31.25rem;
     position: relative;
     margin-top: 2rem;
@@ -143,6 +143,8 @@
   .description {
       margin-left: 1.25rem;
     }
+    
+
   
   @media only screen and (max-width: 950px) {
     .logo {

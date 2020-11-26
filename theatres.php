@@ -5,7 +5,7 @@
 require('includes/config.php');
 
 ?>
-    <title>Home</title>
+    <title>Theatres</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -143,6 +143,16 @@ label {
 }
 input:checked+label{
   background: #2255a4 !important; color: #fff !important;}
+
+  footer{
+            background-color: #1a1919;
+            color:white;
+            padding: 2vw;
+            text-align: center;
+            font-size: 1.2vw;
+        }
+
+
 </style>
 </head>
 
@@ -332,6 +342,9 @@ input:checked+label{
               </div><br></form>
 
             </div><br><br>
+            <footer style="bottom: 0;">
+            Copyright @2020 Tickit.com. All Rights Reserved
+        </footer>
   </body>
   <script>
     function number1(){
