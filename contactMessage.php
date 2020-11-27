@@ -8,6 +8,11 @@ require('includes/config.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="./contact.css">
+    <style>
+    p {
+        margin-bottom: 4%
+    }    
+    </style>
 </head>
 <body>
 <?php
@@ -15,6 +20,13 @@ require('includes/config.php');
       $name = $_POST["name"];
       $email = $_POST["email"];
       $message = $_POST["message"];
+
+      $sql = "INSERT INTO contact (fullName, emailAddress, message) VALUES ('$name', '$email', '$message')";
+if($conn->query($sql) === TRUE){
+    $msg = "This is what we have received from you.";
+} else{
+    echo "We could not send the message due to an error. ";
+}
   ?>
 
 <div class="contact-container">
@@ -29,7 +41,7 @@ require('includes/config.php');
   </div>
       
       <h1>Your Message</h1>
-      <p>This is what we have received from you.</p>
+      <p><?php echo $msg ?></p>
       
       <form id="contact-form-result" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
         <label for="name">Full name</label>
@@ -43,12 +55,6 @@ require('includes/config.php');
   </form>
     </div>
   </div>
-  <?php
-  $sql = "INSERT INTO contact (fullName, emailAddress, message) VALUES ('$name', '$email', '$message')";
-if($conn->query($sql) === TRUE){
-    alert("Message sent successfully.");
-} else{
-    alert("ERROR: Could not send message. ");
-} ?>
+
 </body>
 </html>
