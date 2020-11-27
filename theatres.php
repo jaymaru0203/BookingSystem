@@ -172,7 +172,7 @@ input:checked+label{
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="homepage.php">
           <img
             id="logo"
             src="images/logo.png"
@@ -182,22 +182,27 @@ input:checked+label{
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="homepage.php">Home</a>
+            <a class="nav-link" href="homepage.php"
+              >Home </a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="events.php">Events</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="movies.php">Movies <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="movies.php">Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.php">Contact</a>
           </li>
           <?php if (isset($_SESSION['email']))
           { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="profilepage.html">Profile</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="logout.php">Logout</a>
             </li>

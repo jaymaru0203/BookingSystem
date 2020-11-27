@@ -253,7 +253,13 @@ require('includes/config.php');
         </style>
 </head>
 <body>
-<?php if (isset($_SESSION['email']))
+<?php 
+$sql = "SELECT * FROM admin";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+if (isset($_SESSION['email']) && $_SESSION['email']==$row['email'])
 { ?>
 <div class="topnav"><a href="homepage.php">
     <img src="images/logo.png" id="logo"></a>
@@ -546,8 +552,8 @@ if ($result->num_rows > 0) {
 <?php 
 }
 else{
-  echo "<center><h2 style='margin: 25vh; line-height: 3vw;'>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE<br>Go Back to Home Page<br><a href='homepage.html'><button type='submit' class='button1' value='Home'>HOME</button></a></h2></center>";
-}
+  echo "<center><h2 style='margin: 25vh; line-height: 3vw;'>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE<br>Go Back to Home Page<br><a href='homepage.php'><button type='submit' class='button1' value='Home'>HOME</button></a></h2></center>";
+}}}
 ?>
 
 <script>
