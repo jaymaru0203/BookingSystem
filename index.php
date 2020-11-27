@@ -143,7 +143,7 @@ if(isset($_POST['login'])){
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Tickit</title>
+      <title>Login / Signup</title>
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
       <link
@@ -582,7 +582,7 @@ $(document).ready(function(){
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="homepage.php">
           <img
             id="logo"
             src="images/logo.png"
@@ -592,16 +592,18 @@ $(document).ready(function(){
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="homepage.php">Home</a>
+            <a class="nav-link" href="homepage.php"
+              >Home </a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="events.php">Events</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="movies.php">Movies </a>
+            <a class="nav-link" href="movies.php">Movies</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.php">Contact</a>
@@ -609,11 +611,14 @@ $(document).ready(function(){
           <?php if (isset($_SESSION['email']))
           { ?>
             <li class="nav-item">
+              <a class="nav-link" href="profilepage.html">Profile</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="logout.php">Logout</a>
             </li>
           <?php } else { ?>
           <li class="nav-item active">
-            <a class="nav-link" href="index.php">Login/Signup <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Login/Signup</a>
           </li>
           <?php } ?>
         </ul>
