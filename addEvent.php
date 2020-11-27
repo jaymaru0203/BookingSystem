@@ -8,7 +8,7 @@ echo "<!DOCTYPE html>
       body{
         background-color: #eee;
         margin: 0;
-        overflow: hidden;
+        
       }
       div{
         background-color: #fff;

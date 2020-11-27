@@ -9,7 +9,7 @@
   <head>
       <?php
 require('includes/config.php');
-
+if(isset($_SESSION['email'])){
 ?>
     <title>Home</title>
     <meta charset="utf-8" />
@@ -187,6 +187,9 @@ while($row = $result->fetch_assoc()) {
     </div>
 
     <?php
+  }}
+  else{
+    header("Location:index.php");
   }
   ?>
 

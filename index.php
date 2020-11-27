@@ -36,7 +36,14 @@ if(isset($_POST['login'])){
 
               $msg = "Logged in";
             $_SESSION['email'] = $email;
-            header('Location:homepage.html');
+            if(isset($_GET['location'])) {
+              $a = $_GET['location'];
+              
+              header("Location:". $a);
+          }
+          else{
+                header('Location:homepage.php');
+          }
             exit;
             
 
@@ -102,7 +109,13 @@ if(isset($_POST['login'])){
 
           if ($conn->query($sql) === TRUE) {
               $_SESSION['email'] = $email;
-                  header('Location: homepage.html');
+              if(isset($_GET['location'])) {
+                $b = $_GET['location'];
+                header("Location:". $b);
+            }
+            else{
+                  header('Location:homepage.php');
+            }
                   exit;
           } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

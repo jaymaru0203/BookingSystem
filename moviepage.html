@@ -203,30 +203,43 @@ while($row = $result->fetch_assoc()) {
                 <p>This game is amazing and anybody who is a Marvel fan will fall in love. They execute Kamala Khan's story beautifully (I am a big fan of her I been reading her comics for awhile), while also introducing an avengers team that is not only aged but divided making an interesting dynamic. <span id="dots">...</span><span id="more">I particularly like the iconic mission line up for Bruce Banner/Hulk. Although short you can see/hear the character development going on with Bruce struggle to come to terms with the powers he hated for so long I love it. I have to admit there are some minor flaws. One being that sometimes the game can be a bit glitchy, and another being the lack of boss fights presented at the game launch.</span><a onclick="myFunction()" id="myBtn" style="color: blue;cursor: pointer;">Read more</a></p>
               </div>
     </div>
+    <?php
+    $id = $_GET['id'];
+    if(isset($_SESSION['emai'])){
+    $email = $_SESSION['email'];}
+
+      $sql = "SELECT * FROM reviews WHERE id=$id";
+      $result = $conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+    ?>
+<div class="media flex-column flex-md-row text-sm-left comment">
+  <div class="media-left"><img class="rounded-circle" src="https://i.pinimg.com/736x/5c/b5/a4/5cb5a4929a2669c8bde561dc41032bb8.jpg" style="width: 70px;height: 70px;" alt=""></div>
+    <div class="media-body media-body-inset-1">
+                  <h6><?php echo $row['Remail']; ?></h6><span class="text-gray"></span>
+      <div class="blog-post-time">
+                    <time datetime="2018-04-24"><?php echo $row['Rtime']; ?></time>
+      </div>
+        <p><?php echo $row['Rmessage']; ?></p>
+      </div>
+</div>
+
+<?php
+  }}
+?>
 
     <section>
       <div class="row justify-content-center ">
         <div class="col-md-8 text-center comment">
           <h4>Write a Review</h4>
           <!-- RD Mailform-->
-          <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="forms" method="post" action="bat/rd-mailform.php" novalidate="novalidate">
+          <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="forms" method="post" action="addreview.php?id=<?php echo $_GET['id']; ?>" novalidate="novalidate">
             <div class="row row-10">
-              <div class="col-12 col-md-6">
-                <div class="form-wrap has-error">
-                  <label class="form-label rd-input-label" for="forms-name"></label>
-                  <input class="form-input form-control-has-validation form-control-last-child" id="forms-name" type="text" name="name" placeholder="Your first name..." data-constraints="@Required">
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="form-wrap">
-                  <label class="form-label rd-input-label" for="forms-email"></label>
-                  <input class="form-input form-control-last-child" id="forms-email" type="email" name="email" placeholder="Your e-mail..." data-constraints="@Email @Required">
-                </div>
-              </div>
               <div class="col-12 col-md-12">
                 <div class="form-wrap">
                   <label class="form-label rd-input-label" for="forms-message"></label>
-                  <textarea class="form-input form-control-last-child" id="forms-message" name="message" placeholder="Message:" data-constraints="@Required"></textarea>
+                  <textarea class="form-input form-control-last-child" id="forms-message" name="Rmessage" placeholder="Message:" data-constraints="@Required"></textarea>
                 </div>
                 <div class="row justify-content-center mb-5 mt-5">
                     <button class="buttcomment" type="submit" style="zoom: 0.7;">Submit</button>
