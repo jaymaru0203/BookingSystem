@@ -108,6 +108,15 @@ require('includes/config.php');
     }
     </style>
   <body>
+  <?php
+    $search = "";
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(!empty($_POST["search"])) {
+        $search = $_POST["search"];
+    }
+  } ?>
+
     <!-- Navbar -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -163,10 +172,11 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
+        <form class="form-inline my-2 my-lg-0 " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
           <input
             class="form-control mr-sm-2 height"
             type="search"
+            name="search"
             placeholder="Search"
             aria-label="Search"
           />
@@ -248,7 +258,12 @@ require('includes/config.php');
       <div class="row flex-container">
       <?php
 
-    $sql = "SELECT * FROM events";
+    if($search != "") {
+      $word = "'%" . $search . "%'";
+      $sql = "SELECT * FROM events WHERE eventName LIKE $word";
+    } else {
+        $sql = "SELECT * FROM events";
+    }
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -274,7 +289,7 @@ require('includes/config.php');
  
 <?php }
 } else {
-  echo "<tr><td colspan='7' style='text-align: center;'>No Movies Have Been Added Yet</td></tr>";
+  echo "<tr><td colspan='7' style='text-align: center;'>No Events Have Been Added Yet</td></tr>";
 }
   ?>
       </div>
@@ -288,7 +303,12 @@ require('includes/config.php');
       <div class="row">
       <?php
 
-$sql = "SELECT * FROM movies";
+if($search != "") {
+  $word = "'%" . $search . "%'";
+  $sql = "SELECT * FROM movies WHERE movieName LIKE $word";
+} else {
+    $sql = "SELECT * FROM movies";
+}
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

@@ -144,9 +144,13 @@ require('includes/config.php');
     input[type="radio"] {
       width: 2rem;
     }
-    .filter1 {
+    .filter1, .filter2 {
       color: #0059a2;
       font-size: 1.5rem;
+      margin-bottom: 1%;
+    }
+    .filter2 {
+      margin-top: 1.5%;
     }
     #clear {
       display: inline-block;
@@ -154,14 +158,19 @@ require('includes/config.php');
     </style>
   <body>
   <?php
-    $sort = $filter = $search = "";
+    $sort = $filterLocation = $filterType = $search = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!empty($_POST["sort"])) {
             $sort = $_POST["sort"];
-        } else if(!empty($_POST["filter"])) {
-            $filter = $_POST["filter"];
-        } else if(!empty($_POST["search"])) {
+        } else if(!empty($_POST["filterLocation"]) && !empty($_POST["filterType"])) {
+          $filterLocation = $_POST["filterLocation"];
+          $filterType = $_POST["filterType"];
+      } else if(!empty($_POST["filterLocation"])) {
+            $filterLocation = $_POST["filterLocation"];
+        } else if(!empty($_POST["filterType"])) {
+          $filterType = $_POST["filterType"];
+      } else if(!empty($_POST["search"])) {
           $search = $_POST["search"];
       }
 
@@ -351,27 +360,59 @@ require('includes/config.php');
 
     <div class="col-2">
     <label>
-    <input type="radio" name="filter" value="Mumbai"> Mumbai
+    <input type="radio" name="filterLocation" value="Mumbai"> Mumbai
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="radio" name="filter" value="Delhi"> Delhi
+    <input type="radio" name="filterLocation" value="Delhi"> Delhi
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="radio" name="filter" value="KJSCE"> KJSCE
+    <input type="radio" name="filterLocation" value="KJSCE"> KJSCE
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="radio" name="filter" value="India"> India
+    <input type="radio" name="filterLocation" value="India"> India
     </label>
     </div>
     <div class="col-2">
     <label>
-    <input type="radio" name="filter" value="Phoenix"> Phoenix
+    <input type="radio" name="filterLocation" value="Phoenix"> Phoenix
+    </label>
+    </div>
+    <div class="col-2">
+    </div>
+    </div>
+
+    <h5 class="filter2">Type</h5>
+    <div class="row">
+
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterType" value="StandUp Comedy"> Comedy
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterType" value="Concert"> Concert
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterType" value="Stage Drama"> Drama
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterType" value="Orchestra"> Orchestra
+    </label>
+    </div>
+    <div class="col-2">
+    <label>
+    <input type="radio" name="filterType" value="Adventure/Sport"> Adventure
     </label>
     </div>
     <div class="col-2">
@@ -402,9 +443,17 @@ if($sort != "") {
         $sql = "SELECT * FROM events ORDER BY eventName ASC";
     }
     
-} else if($filter != "") {
-    $loc = "'%" . $filter . "%'";
-    $sql = "SELECT * FROM events WHERE eventVenue LIKE $loc";
+} else if($filterType != "" && $filterLocation != "") {
+  $type = "'%" . $filterType . "%'";
+  $loc = "'%" . $filterLocation . "%'";
+
+  $sql = "SELECT * FROM events WHERE eventType LIKE $type AND eventVenue LIKE $loc";
+} else if($filterType != "") {
+  $type = "'%" . $filterType . "%'";
+  $sql = "SELECT * FROM events WHERE eventType LIKE $type";
+} else if($filterLocation != "") {
+  $loc = "'%" . $filterLocation . "%'";
+  $sql = "SELECT * FROM events WHERE eventVenue LIKE $loc";
 } else if($search != "") {
   $word = "'%" . $search . "%'";
   $sql = "SELECT * FROM events WHERE eventName LIKE $word";
