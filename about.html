@@ -15,7 +15,6 @@ require('includes/config.php');
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="homepage.css" />
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -34,6 +33,9 @@ require('includes/config.php');
     ></script>
     
     <style>
+      #about-container {
+        padding: 3rem 3.5rem;
+      }
     .about-us {
       line-height: 1.8;
       font-size: 1rem;
@@ -62,13 +64,14 @@ require('includes/config.php');
     .navbar {
       padding: 0 1rem;
     }
-    footer{
-      background-color: #1a1919;
-      color:white;
-      padding: 2vw;
-      text-align: center;
-      font-size: 1.2vw;
-    }
+    input:hover,
+  textarea:hover,
+  button:hover,
+  .anchorBtn:hover {
+    opacity: 0.5;
+    text-decoration: none;
+    color: white;
+  }
     </style>
 </head>
 <body>
@@ -126,24 +129,13 @@ require('includes/config.php');
         </li>
         <?php } ?>
       </ul>
-      <form class="form-inline my-2 my-lg-0 ">
-        <input
-          class="form-control mr-sm-2 height"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
-          Search
-        </button>
-      </form>
     </div>
   </nav>
 
 <div class="contact-container">
     <div class="left-col">
     </div>
-    <div class="right-col">
+    <div id="about-container" class="right-col">
       <div class="theme-switch-wrapper">
       
   </div>
@@ -158,8 +150,5 @@ require('includes/config.php');
     
     </div>
   </div>
-  <footer style="bottom: 0;">
-    Copyright @2020 Tickit.com. All Rights Reserved
-</footer>
 </body>
 </html>

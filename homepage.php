@@ -179,6 +179,7 @@ require('includes/config.php');
             name="search"
             placeholder="Search"
             aria-label="Search"
+            autocomplete="off"
           />
           <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
             Search
@@ -209,14 +210,14 @@ require('includes/config.php');
             <img src="./images/concert2.jpg" class="d-block w-100" alt="..." />
             <div class="carousel-caption d-none d-md-block">
               <h5>Beatnik Summer Festival</h5>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <p>Music event in Fox Island, WA by Fox Island Yacht Club.</p>
             </div>
           </div>
           <div class="carousel-item">
             <img src="./images/concert4.jpg" class="d-block w-100" alt="..." />
             <div class="carousel-caption d-none d-md-block">
               <h5>Acapella Events</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>From red carpet galas and sangeets to college fests and corporate events.</p>
             </div>
           </div>
           <div class="carousel-item">
@@ -224,7 +225,7 @@ require('includes/config.php');
             <div class="carousel-caption d-none d-md-block">
               <h5>Sound Spirit Fest</h5>
               <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              Spirit Fest is an international collective of musicians spread across Germany, Japan, and England.
               </p>
             </div>
           </div>

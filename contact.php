@@ -15,7 +15,6 @@ require('includes/config.php');
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="homepage.css" />
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -56,12 +55,9 @@ require('includes/config.php');
     .navbar {
       padding: 0 1rem;
     }
-    footer{
-      background-color: #1a1919;
-      color:white;
-      padding: 2vw;
-      text-align: center;
-      font-size: 1.2vw;
+    #contact-form {
+      margin-top: 0%;
+      padding: 0 0 1rem;
     }
     </style>
 </head>
@@ -119,17 +115,6 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
-          <input
-            class="form-control mr-sm-2 height"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
 <div class="contact-container">
@@ -150,14 +135,11 @@ require('includes/config.php');
         <label for="email">Email Address</label>
     <input type="email" id="email" name="email" placeholder="Your Email Address" required>
         <label for="message">Message</label>
-    <textarea rows="6" placeholder="Your Message" id="message" name="message" required></textarea><br>
+    <textarea rows="3" placeholder="Your Message" id="message" name="message" required></textarea><br>
         <button type="submit" id="submit" name="submit">Send</button><!--</a>-->
     
   </form>
     </div>
   </div>
-  <footer style="bottom: 0;">
-            Copyright @2020 Tickit.com. All Rights Reserved
-        </footer>
 </body>
 </html>

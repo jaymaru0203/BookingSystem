@@ -200,9 +200,7 @@ require('includes/config.php');
         </a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="homepage.php"
-              >Home </a
-            >
+            <a class="nav-link" href="homepage.php">Home</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="events.php">Events</a>
@@ -230,12 +228,15 @@ require('includes/config.php');
           </li>
           <?php } ?>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
+        <form class="form-inline my-2 my-lg-0 " action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
           <input
             class="form-control mr-sm-2 height"
             type="search"
             placeholder="Search"
+            name="search"
             aria-label="Search"
+            autocomplete="off"
+
           />
           <button class="btn btn-outline-success my-2 my-sm-0 height text-center" type="submit">
             Search
