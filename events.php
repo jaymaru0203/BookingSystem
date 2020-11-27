@@ -424,7 +424,7 @@ if($sort != "") {
             />
             <div class="card-body">
               <h4 class="card-title"><?php echo $row['eventName']; ?></h4>
-              <p class="card-text"><?php echo $row['eventVenue']; ?> | <span class="price"> ₹<?php echo $row['eventPrice']; ?></span></p>
+              <p class="card-text"><?php echo $row['eventVenue']; ?> <br> <span class="price" style="font-size: larger; color:#e73137; font-weight:600;"> ₹<?php echo $row['eventPrice']; ?></span></p>
               <a href="eventpage.html?id=<?php echo $row['id']; ?>" class="btn btn-red">Book Now</a>
 
             </div>
@@ -433,7 +433,7 @@ if($sort != "") {
  
 <?php }
 } else {
-  echo "<tr><td colspan='7' style='text-align: center;'>No Movies Have Been Added Yet</td></tr>";
+  echo "<tr><td colspan='7' style='text-align: center;'>No Events Have Been Added Yet</td></tr>";
 }
   ?>
       </div>

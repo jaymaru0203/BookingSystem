@@ -302,7 +302,6 @@ require('includes/config.php');
 
 
   <div id="filter" class="col-10 sort-div">
-  <a class="btn btn-custom btn-md" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fas fa-sort-amount-down"></i> Sort By</a>
   <button class="btn btn-custom btn-md" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fas fa-filter"></i> Filter By</button>
   <form id="clear" method="post"> 
   <button class="btn btn-custom btn-md" name="clear" onclick="clear()" type="submit"><i class="fas fa-times"></i> Clear</button>
@@ -313,40 +312,9 @@ require('includes/config.php');
     <div class="collapse" id="multiCollapseExample1">
     <div class="jumbotron">
 
-    <form id="sortForm" name="sort" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-
     <div class="row">
-    <div class="col-2">
-    <label>
-    <input type="radio" name="sort" value="eventPriceLow"> Price <i class="fas fa-sort-numeric-down"></i>
-    </label>
-    </div>
-    <div class="col-2">
-    <label>
-    <input type="radio" name="sort" value="eventPriceHigh"> Price <i class="fas fa-sort-numeric-up-alt"></i></i>
-    </label>
-    </div>
-    <div class="col-2">
-    <label>
-    <input type="radio" name="sort" value="eventDateTimeLow"> Date <i class="fas fa-sort-numeric-down"></i>
-    </label>
-    </div>
-    <div class="col-2">
-    <label>
-    <input type="radio" name="sort" value="eventDateTimeHigh"> Date <i class="fas fa-sort-numeric-up-alt"></i>
-    </label>
-    </div>
-    <div class="col-2">
-    <label>
-    <input type="radio" name="sort" value="eventNameLow"> Title <i class="fas fa-sort-alpha-down"></i>
-    </label>
-    </div>
-    <div class="col-2">
-    <button type="submit" class="btn btn-danger">Sort Movies</button>
-    </div>
     </div>
 
-</form>
 </div>
   </div>
     <div class="collapse" id="multiCollapseExample2">
@@ -429,21 +397,7 @@ require('includes/config.php');
       <div class="row flex-container">
       <?php
 
-if($sort != "") {
-    if($sort == "eventPriceLow")
-    {
-        $sql = "SELECT * FROM events ORDER BY eventPrice ASC";
-    } else if($sort == "eventPriceHigh") {
-        $sql = "SELECT * FROM events ORDER BY eventPrice DESC";
-    } else if($sort == "eventDateTimeLow") {
-        $sql = "SELECT * FROM events ORDER BY eventDateTime ASC";
-    } else if($sort == "eventDateTimeHigh") {
-        $sql = "SELECT * FROM events ORDER BY eventDateTime DESC";
-    } else {
-        $sql = "SELECT * FROM events ORDER BY eventName ASC";
-    }
-    
-} else if($filterGenre != "" && $filterLanguage != "") {
+if($filterGenre != "" && $filterLanguage != "") {
   $genre = "'".$filterGenre."'";
   $language = "'".$filterLanguage."'";
 

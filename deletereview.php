@@ -48,16 +48,12 @@ echo "<!DOCTYPE html>
 <body>
 <div>";
 
-$email = $_SESSION['email'];
-$name= $_POST['name'];
-$contactNumber = $_POST['contactNumber'];
-$gender = $_POST['gender'];
-$age = $_POST['age'];
-$sql = "UPDATE signup SET fullname='$name', gender='$gender', state='$age',contactNumber='$contactNumber' WHERE email='$email'";
+$id = $_GET['id'];
+$sql = "DELETE FROM reviews WHERE id = $id";
 if ($conn->query($sql) === TRUE) {
-  echo "Profile Updated Successfully";
+  echo "Review Deleted Successfully";
 } else {
-  echo "Error Updating Profile: " . $conn->error;
+  echo "Error Deleting Review: " . $conn->error;
 }
 $conn->close();
 

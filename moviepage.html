@@ -207,17 +207,22 @@ while($row = $result->fetch_assoc()) {
     $id = $_GET['id'];
     if(isset($_SESSION['emai'])){
     $email = $_SESSION['email'];}
+    
 
       $sql = "SELECT * FROM reviews WHERE id=$id";
       $result = $conn->query($sql);
-
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
     ?>
 <div class="media flex-column flex-md-row text-sm-left comment">
   <div class="media-left"><img class="rounded-circle" src="https://i.pinimg.com/736x/5c/b5/a4/5cb5a4929a2669c8bde561dc41032bb8.jpg" style="width: 70px;height: 70px;" alt=""></div>
     <div class="media-body media-body-inset-1">
-                  <h6><?php echo $row['Remail']; ?></h6><span class="text-gray"></span>
+                  <h6><?php 
+                    $remail = $row['Remail'];          
+                    $sql1 = "SELECT * FROM signup WHERE email='$remail'";
+                    $result1 = $conn->query($sql1);
+                    while($row1 = $result1->fetch_assoc()){echo $row1['fullname'];} 
+                    ?></h6><span class="text-gray"></span>
       <div class="blog-post-time">
                     <time datetime="2018-04-24"><?php echo $row['Rtime']; ?></time>
       </div>

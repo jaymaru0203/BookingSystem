@@ -112,19 +112,19 @@ if(isset($_SESSION['email'])){
            <h3 class="mb-3">Profile</h3>
             <?php
 
-            $sql = "SELECT * FROM signup where email=$email";
+            $sql = "SELECT * FROM signup WHERE email='$email'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
       ?>
 
-Name: <?php echo $row['fullname']; ?><br>  
-  Email ID: <?php echo $row['email']; ?> <br>  
-  Gender: <?php echo $row['gender']; ?>   <br>
-    Age Group: <?php echo $row['state']; ?>   <br>
-    Mobile Number: <?php echo $row['contactNumber']; ?><br>
-
+<h5>Name: <?php echo $row['fullname']; ?><br>  </h5>
+  <h5>Email ID: <?php echo $row['email']; ?> <br>  </h5>
+  <h5>Gender: <?php echo $row['gender']; ?>   <br></h5>
+    <h5>Age Group: <?php echo $row['state']; ?>   <br></h5>
+    <h5>Mobile Number: <?php echo $row['contactNumber']; ?><br></h5>
+<hr>
     <?php
   }}
   ?>
@@ -176,19 +176,42 @@ Name: <?php echo $row['fullname']; ?><br>
             </form>
         </div>
 
-         <h3 class="mt-5">Reviews</h3>
+         <h3 class="mt-5"> Your Reviews</h3>
+         <?php
+         $email = $_SESSION['email'];
+         $sql = "SELECT * FROM reviews WHERE Remail='$email'";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+    ?>
           <div class="media flex-column flex-md-row text-sm-left comment">
           <div class="media-left"><img class="rounded-circle" src="https://i.pinimg.com/736x/5c/b5/a4/5cb5a4929a2669c8bde561dc41032bb8.jpg" style="width: 70px;height: 70px;" alt=""></div>
             <div class="media-body media-body-inset-1">
-                          <h6>Jack Wilson</h6>
+                          <h6>
+                            <?php 
+                            $id = $row['id'];   
+                    $sql1 = "SELECT * FROM movies WHERE id=$id";
+                    $result1 = $conn->query($sql1);
+                    while($row1 = $result1->fetch_assoc()){echo $row1['movieName'];} 
+                    ?>
+                          </h6>
                           <span class="text-gray"></span>
               <div class="blog-post-time">
-                            <time datetime="2018-04-24">April 24, 2019 at 10:46 am</time>
+                            <time datetime="2018-04-24"><?php echo $row['Rtime']; ?></time>
               </div>
-                <p>This game is amazing and anybody who is a Marvel fan will fall in love. They execute Kamala Khan's story beautifully (I am a big fan of her I been reading her comics for awhile), while also introducing an avengers team that is not only aged but divided making an interesting dynamic. <span id="dots">...</span><span id="more">I particularly like the iconic mission line up for Bruce Banner/Hulk. Although short you can see/hear the character development going on with Bruce struggle to come to terms with the powers he hated for so long I love it. I have to admit there are some minor flaws. One being that sometimes the game can be a bit glitchy, and another being the lack of boss fights presented at the game launch.</span><a onclick="myFunction()" id="myBtn" style="color: blue;cursor: pointer;">Read more</a></p>
+                <p><?php echo $row['Rmessage']; ?></p><br>
+                <a href="deletereview.php?id=<?php echo $id ?>">
+                  Delete Review
+                </a>
               </div>
     </div>
     </div>
+
+    <?php }}
+    else{
+      echo "<h6>You have not written any reviews on Tickit.com</h6><br><br>";
+    }
+    ?>
 
 
 
