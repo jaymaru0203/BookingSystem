@@ -59,7 +59,7 @@ require('includes/config.php');
 
     /* Carousel */
     .carousel-inner img {
-      height: 23em;
+      height: 24em;
     }
 
     /* Event Cards Container */
